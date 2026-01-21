@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跳转支付宝转账 | 蓝树康</title>
+    <!-- 适配移动端样式，提升体验 -->
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 300px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tip {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00a1e9;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .warn {
+            color: #ff4444;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="tip">正在跳转至支付宝转账页面...</p>
+        <a class="btn" id="jumpBtn">点击手动跳转</a>
+        <p class="warn">转账前请核对信息：蓝树康 | 中国农业银行 | 6228480830653379610</p>
+    </div>
+
+    <script>
+        // 你的专属scheme协议（已URL编码）
+        const alipayScheme = encodeURIComponent("alipays://platformapi/startapp?appId=09999988&actionType=toCard&sourceId=bill&cardNo=6228480830653379610&bankAccount=蓝树康&money=0&amount=0&bankMark=ABC&bankName=中国农业银行");
+        
+        // 自动跳转逻辑（延迟1秒，提升兼容性）
+        setTimeout(() => {
+            window.location.href = `alipays://platformapi/startapp?appId=20000067&url=${alipayScheme}`;
+        }, 1000);
+
+        // 手动跳转按钮绑定
+        document.getElementById("jumpBtn").onclick = function() {
+            window.location.href = `alipays://platformapi/startapp?appId=20000067&url=${alipayScheme}`;
+        };
+    </script>
+</body>
+</html>
